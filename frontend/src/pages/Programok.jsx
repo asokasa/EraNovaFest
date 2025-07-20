@@ -8,7 +8,7 @@ export default function Programok() {
   const [selectedDate, setSelectedDate] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/programs")
+    fetch("/api/programs")
       .then((res) => res.json())
       .then((data) => {
         setPrograms(data);
