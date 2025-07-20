@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
@@ -12,27 +13,28 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// ENV variables
 const JWT_SECRET = process.env.JWT_SECRET;
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-// MongoDB setup
+// MongoDB
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => console.error(err));
 
-// Cloudinary setup
+// Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// Multer setup
+// Multer
 const storage = multer.diskStorage({});
 const upload = multer({ storage });
 
-// MongoDB Program model
+// MongoDB Model
 const Program = mongoose.model("Program", new mongoose.Schema({
   date: String,
   time: String,
@@ -41,7 +43,7 @@ const Program = mongoose.model("Program", new mongoose.Schema({
   imageUrl: String
 }));
 
-// 🔐 Login endpoint
+// 🔐 Login
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -53,7 +55,7 @@ app.post("/api/login", (req, res) => {
   res.status(401).json({ message: "Invalid credentials" });
 });
 
-// 🔐 Example protected endpoint
+// 🔐 Example protected
 app.get("/api/admin-data", (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: "No token" });
@@ -66,7 +68,7 @@ app.get("/api/admin-data", (req, res) => {
   });
 });
 
-// 📤 Upload festival program
+// 📤 Upload program
 app.post("/api/programs", upload.single("image"), async (req, res) => {
   try {
     const { date, time, title, description } = req.body;
@@ -94,8 +96,7 @@ app.post("/api/programs", upload.single("image"), async (req, res) => {
   }
 });
 
-
-
+// 📋 Get programs
 app.get("/api/programs", async (req, res) => {
   try {
     const programs = await Program.find().sort({ date: 1, time: 1 });
@@ -106,4 +107,11 @@ app.get("/api/programs", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`🚀 Backend running at http://localhost:${PORT}`));
+// 🔷 Serve React frontend
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
+
+app.listen(PORT, () => console.log(`🚀 Backend & frontend running on port ${PORT}`));
