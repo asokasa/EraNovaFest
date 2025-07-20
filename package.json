@@ -1,12 +1,12 @@
 {
-  "name": "backend",
+  "name": "festival-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Festival app with backend + frontend",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    
-    "postinstall": "cd ../frontend && npm install && npm run build"
+    "start": "node backend/server.js",
+    "postinstall": "cd frontend && npm install && npm run build",
+    "dev": "nodemon backend/server.js"
   },
   "keywords": [],
   "author": "",
@@ -26,3 +26,4 @@
     "nodemon": "^3.1.10"
   }
 }
+
