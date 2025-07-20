@@ -1,0 +1,37 @@
+.tamogatas{
+    min-height: 100vh;
+    background-color: #68A393;
+    width: 100%;
+}
+
+
+
+.asd{
+    
+    height: 700px;
+    background-color: #68A393;
+    
+    
+}
+
+
+.cim_holder {
+  position: relative;
+  top: 200px;
+  width: 60%;
+  text-align: end;
+  background-color: #D28900;
+  border-radius: 25px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.tam_cim {
+  margin: 0;
+  font-size: 32px; /* or adjust */
+  line-height: normal;
+}
+

@@ -1,0 +1,68 @@
+.card {
+  background: #E9B206;
+  width: 300px;
+  aspect-ratio: 4 / 3; /* square */
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.image-container {
+  position: relative;
+  width: 80%;   /* smaller than card to show yellow around */
+  flex: 1;
+  perspective: 1000px;
+  margin-bottom: 8px;
+}
+
+
+.image-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.card:hover .image-inner {
+  transform: rotateY(180deg);
+}
+
+
+.image-front, .image-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.image-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.image-back {
+  background: #2A2835;
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+}
+.image-back img {
+  width: 40px;
+  height: 40px;
+}
+
+.card-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 200%;
+  margin-top: 8px;
+  color: #ffffff;
+}
