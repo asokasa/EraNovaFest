@@ -14,7 +14,7 @@ export default function Admin() {
   const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
-    fetch("http://localhost:5000/api/login", {
+    fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),
@@ -31,7 +31,7 @@ export default function Admin() {
   };
 
   const fetchAdminData = () => {
-    fetch("http://localhost:5000/api/admin-data", {
+    fetch("/api/admin-data", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -58,7 +58,7 @@ export default function Admin() {
     Object.keys(programForm).forEach(key => formData.append(key, programForm[key]));
 
     try {
-      const res = await fetch("http://localhost:5000/api/programs", {
+      const res = await fetch("/api/programs", {
         method: "POST",
         body: formData
       });
